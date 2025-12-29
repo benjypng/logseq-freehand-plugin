@@ -10,7 +10,7 @@
 - Includes a floating toolbar to switch colors (Black, Red, Blue, Green) and clear the canvas.
 
 ## 📸 Screenshots / Demo
-To be added.
+![](./screenshots/demo.gif)
 
 ## ⚙️ Installation
 1. Open Logseq.
