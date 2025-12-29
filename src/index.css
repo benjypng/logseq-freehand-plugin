@@ -1,0 +1,70 @@
+.freehand-container {
+  position: relative;
+  width: 800px;
+  height: 400px;
+  background: #ffffff;
+  border: 1px dashed #cccccc;
+  border-radius: 8px;
+  overflow: hidden;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.freehand-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.freehand-stroke {
+}
+
+.freehand-stroke-preview {
+  opacity: 0.6;
+}
+
+.freehand-toolbar {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+}
+
+.freehand-color-picker {
+  display: flex;
+  gap: 6px;
+}
+
+.freehand-color-swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.freehand-color-swatch.is-active {
+  border: 2px solid #333;
+}
+
+.freehand-toolbar-divider {
+  width: 1px;
+  background: #eee;
+}
+
+.freehand-clear-button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 12px;
+  color: #666;
+}
