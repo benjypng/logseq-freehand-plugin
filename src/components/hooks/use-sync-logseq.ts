@@ -1,12 +1,13 @@
 import { BlockEntity } from '@logseq/libs/dist/LSPlugin'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { StrokeData } from '../../interfaces'
 import { deserialize, serialize } from '../../utils'
 
 export const useSyncLogseq = (sketchContainerUuid: string) => {
   const [strokes, setStrokes] = useState<StrokeData[]>([])
-  const [storageUuid, setStorageUuid] = useState<string | null>(null)
+
+  const storageUuidRef = useRef<string | null>(null)
 
   useEffect(() => {
     let unsubscribe: any = null
@@ -24,14 +25,20 @@ export const useSyncLogseq = (sketchContainerUuid: string) => {
         return
       const dataBlock = sketchContainerBlock.children[0] as BlockEntity
       if (!dataBlock) return
-      setStorageUuid(dataBlock.uuid)
+
+      storageUuidRef.current = dataBlock.uuid
+
       setStrokes(deserialize(dataBlock.title))
 
-      unsubscribe = logseq.DB.onBlockChanged(dataBlock.uuid, () => {
-        const incoming = deserialize(dataBlock.title)
-        if (JSON.stringify(incoming) !== JSON.stringify(strokes)) {
-          setStrokes(incoming)
-        }
+      unsubscribe = logseq.DB.onBlockChanged(dataBlock.uuid, async (block) => {
+        const incoming = deserialize(block.title)
+
+        setStrokes((prevStrokes) => {
+          if (JSON.stringify(incoming) !== JSON.stringify(prevStrokes)) {
+            return incoming
+          }
+          return prevStrokes
+        })
       })
     }
 
@@ -43,19 +50,19 @@ export const useSyncLogseq = (sketchContainerUuid: string) => {
     }
   }, [sketchContainerUuid])
 
-  const saveStrokes = useCallback(
-    async (newStrokes: StrokeData[]) => {
-      if (storageUuid) {
-        await logseq.Editor.updateBlock(storageUuid, serialize(newStrokes))
-      }
-    },
-    [storageUuid],
-  )
+  const saveStrokes = useCallback(async (newStrokes: StrokeData[]) => {
+    if (storageUuidRef.current) {
+      await logseq.Editor.updateBlock(
+        storageUuidRef.current,
+        serialize(newStrokes),
+      )
+    }
+  }, [])
 
   const clearStrokes = async () => {
     setStrokes([])
-    if (storageUuid) {
-      await logseq.Editor.updateBlock(storageUuid, '')
+    if (storageUuidRef.current) {
+      await logseq.Editor.updateBlock(storageUuidRef.current, '')
     }
   }
 
