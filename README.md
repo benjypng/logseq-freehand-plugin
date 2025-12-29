@@ -1,5 +1,5 @@
 # logseq-freehand-plugin
-![Version](https://img.shields.io/github/v/release/benjypng/logseq-todoist-plugin?style=flat-square&color=0969da) ![Downloads](https://img.shields.io/github/downloads/benjypng/logseq-todoist-plugin/total?style=flat-square&color=orange) ![License](https://img.shields.io/github/license/benjypng/logseq-todoist-plugin?style=flat-square)
+![Version](https://img.shields.io/github/v/release/benjypng/logseq-freehand-plugin?style=flat-square&color=0969da) ![Downloads](https://img.shields.io/github/downloads/benjypng/logseq-freehand-plugin/total?style=flat-square&color=orange) ![License](https://img.shields.io/github/license/benjypng/logseq-freehand-plugin?style=flat-square)
 
 > Embed simple, hand-drawn sketches and diagrams directly into your Logseq notes.
 
