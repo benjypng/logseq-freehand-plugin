@@ -5,6 +5,7 @@ import { createRoot } from 'react-dom/client'
 import { SketchContainer } from './components/SketchContainer'
 import freehandPluginCss from './index.css?raw'
 import { settings } from './settings'
+import { getStableId } from './utils'
 
 const main = async () => {
   logseq.UI.showMsg('logseq-freehand-plugin loaded')
@@ -19,13 +20,6 @@ const main = async () => {
     })
     await logseq.Editor.setBlockCollapsed(e.uuid, { flag: true })
   })
-
-  const getStableId = (uuid: string, slot: string): string => {
-    const slotEl = parent.document.getElementById(slot)
-    return slotEl?.closest('#right-sidebar')
-      ? `freehand_${uuid}_sidebar`
-      : `freehand_${uuid}_main`
-  }
 
   logseq.App.onMacroRendererSlotted(
     async ({
