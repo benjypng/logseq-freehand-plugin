@@ -19,6 +19,7 @@ const main = async () => {
       sibling: false,
     })
     await logseq.Editor.setBlockCollapsed(e.uuid, { flag: true })
+    await logseq.Editor.exitEditingMode(false)
   })
 
   logseq.App.onMacroRendererSlotted(
